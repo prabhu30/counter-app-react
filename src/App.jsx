@@ -1,4 +1,6 @@
 import { useState } from 'react';
+
+import { Input, Button, Instructions, ModifyCount, ErrorMessage, Footer } from './components/index';
 import './App.css'
 
 function App() {
@@ -44,52 +46,33 @@ function App() {
     <div className='text-center'>
       <h1 className='text-2xl font-bold mt-8'>Counter App using React</h1>
 
-      {/* Instructions */}
-      <p className='mt-4 mb-3 text-xl text-blue-800 underline'>Instructions</p>
-      <ul className='flex flex-col gap-2'>
-        <li>
-          Limits are <span className='font-bold'>0</span> to <span className='font-bold'>{countLimit}</span> (both inclusive)
-        </li>
-        <li>
-          If you try to increment above <span className='font-bold'>{countLimit}</span>, error will be shown
-        </li>
-        <li>
-          If you try to decrement below <span className='font-bold'>{countLimit}</span>, error will be shown
-        </li>
-      </ul>
+      <Instructions countLimit={countLimit} />
 
-      <hr className='w-96 mt-6 mx-auto h-1 bg-slate-500'/>
+      <ModifyCount 
+        type="updateCount" 
+        defaultValue={countLimit} 
+        operation={handleUpdateCount} />
 
-      {/* Update Count Limit Section */}
-      <div className='flex mt-6 mb-4 justify-center'>
-            <input type="number" className='count-limit-input px-3 py-1 border-2 border-gray-400 rounded w-36 focus:outline-none' defaultValue={countLimit} />
-            <button className='px-3 py-1 bg-slate-500 border-2 border-slate-500 rounded-lg ml-2 text-white hover:bg-slate-50 hover:text-black' onClick={handleUpdateCount}>Update Count Limit</button>
-      </div>
-
-      {/* Change Count By Section */}
-      <div className='flex mt-2 mb-6 justify-center'>
-            <input type="number" className='change-by-number px-3 py-1 border-2 border-gray-400 rounded w-36 focus:outline-none' defaultValue={changeByNumber} />
-            <button className='px-3 py-1 bg-slate-500 border-2 border-slate-500 rounded-lg ml-2 text-white hover:bg-slate-50 hover:text-black' onClick={handleChangeByNumber}>Change Count By</button>
-      </div>
+      <ModifyCount 
+        type="changeByNumber" 
+        defaultValue={changeByNumber} 
+        operation={handleChangeByNumber} />
       
-      {/* Count */}
       <p className='mb-4 text-xl'>Count : {count}</p>
       
-      {/* Increment Button */}
-      <button 
-      className='text-2xl px-8 py-3 font-bold bg-gray-300 active:bg-gray-400'
-      onClick={handleIncrement}>+</button>
+      <Button 
+        classNames={`text-2xl px-8 py-3 font-bold bg-gray-300 active:bg-gray-400`}
+        handleClick={handleIncrement}
+        text='+' />
+
+      <Button 
+        classNames={`text-2xl px-8 py-3 font-bold bg-gray-300 active:bg-gray-400 ml-3`}
+        handleClick={handleDecrement}
+        text='-' />
+
+      <ErrorMessage message={errorMessage} />
       
-      {/* Decrement Button */}
-      <button 
-      className='text-2xl px-8 py-3 font-bold bg-gray-300 active:bg-gray-400 ml-3'
-      onClick={handleDecrement}>-</button>
-
-      {/* Error Message Section */}
-      <p className='mt-6 text-red-600 text-xl'>{errorMessage}</p>
-
-      {/* Copyright footer */}
-      <footer className='absolute bottom-6 w-full text-center text-[#6b7280]'>&#169; 2024 Prabhu Kalyan Korivi. All Rights Reserved.</footer>
+      <Footer />  
     </div>
   )
 }
